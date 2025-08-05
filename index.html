@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Betterfly FTUX - iPhone Home Screen</title>
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    backdropBlur: {
+                        '25': '25px',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #000;
+            overflow: hidden;
+        }
+        .adjustLetterSpacing {
+            letter-spacing: -0.4px;
+        }
+        .size-full {
+            width: 100%;
+            height: 100%;
+        }
+        .size-60 {
+            width: 60px;
+            height: 60px;
+        }
+        .backdrop-blur-25 {
+            backdrop-filter: blur(25px);
+        }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+    <script type="text/babel">
+        // iPhone Home Screen Component - Dark Mode
+        // Generated from Figma design
+
+        // Background gradient that matches the Figma design
+        const imgModeDark = "data:image/svg+xml,%3csvg width='393' height='852' xmlns='http://www.w3.org/2000/svg'%3e%3cdefs%3e%3clinearGradient x1='50%25' y1='0%25' x2='50%25' y2='100%25' id='bg'%3e%3cstop stop-color='%23FF453A' offset='0%25'/%3e%3cstop stop-color='%23D946EF' offset='35%25'/%3e%3cstop stop-color='%236366F1' offset='70%25'/%3e%3cstop stop-color='%233B82F6' offset='100%25'/%3e%3c/linearGradient%3e%3c/defs%3e%3crect width='393' height='852' fill='url(%23bg)'/%3e%3c/svg%3e";
+        
+        // Status bar signal/battery icons
+        const imgLevels = "data:image/svg+xml,%3csvg width='143' height='54' xmlns='http://www.w3.org/2000/svg'%3e%3cg fill='white'%3e%3cpath d='M50 21h4v4h-4z'/%3e%3cpath d='M56 19h4v8h-4z'/%3e%3cpath d='M62 17h4v12h-4z'/%3e%3cpath d='M68 15h4v16h-4z'/%3e%3cpath d='M80 21c-1.1 0-2 .9-2 2v4c0 1.1.9 2 2 2h2v1c0 .6.4 1 1 1s1-.4 1-1v-1h2c1.1 0 2-.9 2-2v-4c0-1.1-.9-2-2-2h-6z'/%3e%3cpath d='M95 19h12v8h-12z'/%3e%3cpath d='M110 21c-3.9 0-7 3.1-7 7s3.1 7 7 7 7-3.1 7-7-3.1-7-7-7zm0 11c-2.2 0-4-1.8-4-4s1.8-4 4-4 4 1.8 4 4-1.8 4-4 4z'/%3e%3c/g%3e%3c/svg%3e";
+
+        // Better app icon generator with gradients and proper iOS styling
+        const createAppIcon = (gradient, emoji, textColor = 'white') => {
+            const gradientId = Math.random().toString(36).substr(2, 9);
+            return `data:image/svg+xml,%3csvg width='60' height='60' xmlns='http://www.w3.org/2000/svg'%3e%3cdefs%3e%3clinearGradient id='${gradientId}' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3e%3cstop offset='0%25' stop-color='${encodeURIComponent(gradient[0])}'/%3e%3cstop offset='100%25' stop-color='${encodeURIComponent(gradient[1])}'/%3e%3c/linearGradient%3e%3c/defs%3e%3crect width='60' height='60' rx='13' fill='url(%23${gradientId})'/%3e%3ctext x='30' y='40' text-anchor='middle' fill='${textColor}' font-size='26' font-family='Apple Color Emoji, sans-serif'%3e${encodeURIComponent(emoji)}%3c/text%3e%3c/svg%3e`;
+        };
+
+        const appIcons = {
+            facetime: createAppIcon(['#00D4AA', '#00A86B'], '📹'),
+            photos: createAppIcon(['#FFD60A', '#FF9500'], '🌻'),
+            camera: createAppIcon(['#8E8E93', '#636366'], '📷'),
+            mail: createAppIcon(['#007AFF', '#0051D5'], '✉️'),
+            notes: createAppIcon(['#FFD60A', '#FF9500'], '📝'),
+            reminders: createAppIcon(['#FF3B30', '#D70015'], '●'),
+            clock: createAppIcon(['#FFFFFF', '#F2F2F7'], '🕐', 'black'),
+            news: createAppIcon(['#FF3B30', '#D70015'], '📰'),
+            tv: createAppIcon(['#1D1D1F', '#000000'], '📺'),
+            podcasts: createAppIcon(['#8B5CF6', '#6D28D9'], '🎙️'),
+            appstore: createAppIcon(['#007AFF', '#0051D5'], '📱'),
+            maps: createAppIcon(['#30D158', '#00C7BE'], '🗺️'),
+            health: createAppIcon(['#FF3B30', '#D70015'], '❤️'),
+            wallet: createAppIcon(['#1D1D1F', '#000000'], '💳'),
+            settings: createAppIcon(['#8E8E93', '#636366'], '⚙️'),
+            phone: createAppIcon(['#30D158', '#00C7BE'], '📞'),
+            safari: createAppIcon(['#007AFF', '#0051D5'], '🧭'),
+            messages: createAppIcon(['#30D158', '#00C7BE'], '💬'),
+            music: createAppIcon(['#FF3B30', '#D70015'], '🎵'),
+            noapp: createAppIcon(['#E5E5E7', '#D1D1D6'], '+', '#8E8E93')
+        };
+
+        function AppIcon({ left, icon, label, isCalendar = false }) {
+            return (
+                <div className="absolute box-border content-stretch flex flex-col gap-[5px] items-center justify-start p-0 top-0 w-[60px]" style={{ left: `${left}px` }}>
+                    <div className="relative w-[60px] h-[60px]">
+                        {isCalendar ? (
+                            <div className="absolute bg-white left-0 top-0 w-[60px] h-[60px] rounded-[14px] overflow-hidden text-center">
+                                <div className="absolute inset-x-[18px] top-[13px] bottom-[2px] text-[37.5px] font-light text-black">
+                                    <p className="block leading-[40px] text-nowrap">6</p>
+                                </div>
+                                <div className="absolute top-[4px] left-[16px] right-[15px] text-[#ff3a2f] text-[11.5px] font-bold">
+                                    <p className="block leading-[normal] text-nowrap">MON</p>
+                                </div>
+                            </div>
+                        ) : (
+                            <div className="absolute left-0 top-0 w-[60px] h-[60px] rounded-[14px] overflow-hidden">
+                                <img src={icon} alt={label} className="w-full h-full object-cover" />
+                            </div>
+                        )}
+                    </div>
+                    {label && (
+                        <div className="font-normal h-3.5 leading-[0] not-italic overflow-ellipsis overflow-hidden relative shrink-0 text-[#ffffff] text-[12px] text-center text-nowrap w-full">
+                            <p className="block leading-[normal] overflow-inherit">{label}</p>
+                        </div>
+                    )}
+                </div>
+            );
+        }
+
+        function DockApp({ icon }) {
+            return (
+                <div className="relative w-[60px] h-[60px]">
+                    <div className="absolute left-0 top-0 w-[60px] h-[60px] rounded-[14px] overflow-hidden">
+                        <img src={icon} alt="" className="w-full h-full object-cover" />
+                    </div>
+                </div>
+            );
+        }
+
+        function HomeScreenIPhone({ mode = "Dark" }) {
+            if (mode === 'Dark') {
+                return (
+                    <div 
+                        className="bg-center bg-cover bg-no-repeat box-border flex flex-col gap-2.5 items-center justify-start p-0 relative w-full h-full" 
+                        style={{ backgroundImage: `url('${imgModeDark}')` }}
+                    >
+                        {/* Status Bar */}
+                        <div className="box-border content-stretch flex flex-row gap-28 h-[54px] items-start justify-start p-0 relative shrink-0 w-[393px]">
+                            <div className="h-[54px] relative shrink-0 w-[138px]">
+                                <div className="absolute font-semibold inset-[33.96%_36.23%_25.3%_36.96%] leading-[0] not-italic text-[#ffffff] text-[17px] text-center">
+                                    <p className="block leading-[22px]">9:41</p>
+                                </div>
+                            </div>
+                            <div className="h-[54px] relative shrink-0 w-[143px]">
+                                <img alt="" className="block max-w-none size-full" src={imgLevels}/>
+                            </div>
+                        </div>
+
+                        {/* App Icons Grid */}
+                        <div className="basis-0 grow min-h-px min-w-px relative shrink-0 w-full">
+                            {/* Row 1 */}
+                            <div className="absolute h-[79px] left-[31px] top-[26px] w-[331px]">
+                                <AppIcon left={0} icon={appIcons.facetime} label="FaceTime" />
+                                <AppIcon left={90.33} icon="calendar" isCalendar={true} />
+                                <AppIcon left={180.66} icon={appIcons.photos} label="Photos" />
+                                <AppIcon left={270.99} icon={appIcons.camera} label="Camera" />
+                            </div>
+
+                            {/* Row 2 */}
+                            <div className="absolute h-[79px] left-[31px] top-[124px] w-[331px]">
+                                <AppIcon left={0} icon={appIcons.mail} label="Mail" />
+                                <AppIcon left={90.33} icon={appIcons.notes} label="Notes" />
+                                <AppIcon left={180.66} icon={appIcons.reminders} label="Reminders" />
+                                <AppIcon left={270.99} icon={appIcons.clock} label="Clock" />
+                            </div>
+
+                            {/* Row 3 */}
+                            <div className="absolute h-[79px] left-[31px] top-[222px] w-[331px]">
+                                <AppIcon left={0} icon={appIcons.news} label="News" />
+                                <AppIcon left={90.33} icon={appIcons.tv} label="TV" />
+                                <AppIcon left={180.66} icon={appIcons.podcasts} label="Podcasts" />
+                                <AppIcon left={270.99} icon={appIcons.appstore} label="App Store" />
+                            </div>
+
+                            {/* Row 4 */}
+                            <div className="absolute h-[79px] left-[31px] top-80 w-[331px]">
+                                <AppIcon left={0} icon={appIcons.maps} label="Maps" />
+                                <AppIcon left={90.33} icon={appIcons.health} label="Health" />
+                                <AppIcon left={180.67} icon={appIcons.wallet} label="Wallet" />
+                                <AppIcon left={271} icon={appIcons.settings} label="Settings" />
+                            </div>
+
+                            {/* Row 5 */}
+                            <div className="absolute h-[79px] left-[31px] top-[418px] w-[331px]">
+                                <AppIcon left={0} icon={appIcons.noapp} label="App Name" />
+                            </div>
+                        </div>
+
+                        {/* Search Field */}
+                        <div className="backdrop-blur-[25px] backdrop-filter bg-[rgba(37,37,37,0.55)] box-border content-stretch flex flex-row gap-2.5 h-[30px] items-start justify-start overflow-clip px-[11px] py-[7px] relative rounded-[100px] shrink-0">
+                            <div className="font-normal leading-[0] not-italic relative shrink-0 text-[#ffffff] text-[12px] text-center text-nowrap tracking-[-0.4px]">
+                                <p className="adjustLetterSpacing block leading-[16px] whitespace-pre">🔍 Search</p>
+                            </div>
+                        </div>
+
+                        {/* Dock */}
+                        <div className="box-border content-stretch flex flex-row items-center justify-center px-[11px] py-3 relative rounded-[41px] shrink-0 w-[393px]">
+                            <div className="basis-0 flex flex-row grow items-center self-stretch shrink-0">
+                                <div className="backdrop-blur-[25px] backdrop-filter basis-0 bg-[rgba(37,37,37,0.55)] box-border content-stretch flex flex-row gap-[30px] grow h-full items-center justify-center min-h-px min-w-px px-0 py-[19px] relative rounded-[41px] shrink-0">
+                                    <DockApp icon={appIcons.phone} />
+                                    <DockApp icon={appIcons.safari} />
+                                    <DockApp icon={appIcons.messages} />
+                                    <DockApp icon={appIcons.music} />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                );
+            }
+        }
+
+        function IPhoneHomeScreenDark() {
+            return (
+                <div className="relative size-full">
+                    <div className="absolute bg-center bg-cover bg-no-repeat bottom-0 box-border content-stretch flex flex-col gap-2.5 items-center justify-start left-1/2 overflow-clip p-0 top-0 translate-x-[-50%]">
+                        <HomeScreenIPhone mode="Dark"/>
+                    </div>
+                </div>
+            );
+        }
+
+        function App() {
+            return (
+                <div className="w-screen h-screen flex items-center justify-center bg-black">
+                    <div className="w-[393px] h-[852px] relative overflow-hidden">
+                        <IPhoneHomeScreenDark />
+                    </div>
+                </div>
+            );
+        }
+
+        ReactDOM.render(<App />, document.getElementById('root'));
+    </script>
+</body>
+</html>
