@@ -32,6 +32,32 @@ This project contains a React component that recreates an iPhone home screen in 
 
 3. Open your browser to the provided localhost URL
 
+## Deployment (Auto-Deploy Setup)
+
+### Deploy to GitHub Pages
+This project is set up with automated deployment to GitHub Pages:
+
+1. **Make your changes** to any files in the project
+2. **Deploy with one command**:
+   ```bash
+   ./deploy.sh
+   ```
+   Or with a custom commit message:
+   ```bash
+   ./deploy.sh "Added new feature or fix"
+   ```
+3. **Your changes go live** at: https://sachahurley.github.io/betterfly-ftux/
+   - Usually takes 1-2 minutes to update
+   - The deploy script automatically commits, pushes, and triggers GitHub Pages rebuild
+
+### Manual Git Commands (Alternative)
+If you prefer manual control:
+```bash
+git add .
+git commit -m "Your commit message"
+git push origin main
+```
+
 ## Project Structure
 
 ```
@@ -39,6 +65,7 @@ betterfly-ftux/
 ├── components/
 │   └── HomeScreen.js          # Main iPhone home screen component
 ├── index.html                 # Demo page
+├── deploy.sh                  # Auto-deploy script for GitHub Pages
 ├── package.json              # Project dependencies
 ├── tailwind.config.js        # Tailwind CSS configuration
 ├── postcss.config.js         # PostCSS configuration
